@@ -19,6 +19,8 @@ const ListagemAnimais: React.FC = () => {
     const [animais, setAnimais] = useState<Animal[]>([]);
     const [error, setError] = useState<string | null>(null);
 
+    const logo = require('../assets/images/logo.png');
+
     useEffect(() => {
         const fetchAnimais = async () => {
             try {
@@ -49,7 +51,7 @@ const ListagemAnimais: React.FC = () => {
         <View style={styles.container}>
             <StatusBar backgroundColor="black" barStyle='light-content' />
             <View style={styles.header}>
-                <Text style={styles.headerText}>Lista de Animais Cadastrados</Text>
+                <Image source={logo} style={styles.logo} />
             </View>
 
             <FlatList
@@ -63,11 +65,15 @@ const ListagemAnimais: React.FC = () => {
 
 
 const styles = StyleSheet.create({
+    logo: {
+        width: 200,
+        height: 130,
+    },
     container: {
         flex: 1,
     },
     header: {
-        backgroundColor: '#ffdab9',
+        backgroundColor: '#606c38',
         alignItems: 'center',
         paddingVertical: 20
     },
