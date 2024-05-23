@@ -1,39 +1,38 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 
 function Footer(): React.JSX.Element {
-    return (
-        <View style={styles.footer}>
+    
+    const navigation = useNavigation();
+    // const route = useRoute();
 
-        <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/menu.png')}
-                    style={styles.footerIcon}
-                />
-                </TouchableOpacity>
-                
-            <TouchableOpacity >
-                <Image
-                    source={require('../assets/images/home.png')}
-                    style={styles.footerIcon}
+ return(
+     <View style={styles.footer}>
+   <TouchableOpacity onPress={() => navigation.navigate('ListagemAnimal')}>
+     <Image source={require('../assets/images/lupa.png')}
+     style={styles.footerIcon}/>
+   </TouchableOpacity>
 
-                />
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/profile.png')}
-                    style={styles.footerIcon}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/lupa.png')}
-                    style={styles.footerIcon}
-                />
-            </TouchableOpacity>
-        </View>
-    )
+   <TouchableOpacity onPress={() =>navigation.navigate('CadastroAnimal')}>
+     <Image source={require('../assets/images/profile.png')}
+      style={styles.footerIcon}/>
+   </TouchableOpacity>
+
+
+   <TouchableOpacity >
+     <Image source={require('../assets/images/home.png')}
+      style={styles.footerIcon}/>
+   </TouchableOpacity>
+
+   <TouchableOpacity >
+     <Image source={require('../assets/images/menu.png')}
+      style={styles.footerIcon}/>
+   </TouchableOpacity>
+  </View>
+ );
+
 }
 
 const styles = StyleSheet.create({
