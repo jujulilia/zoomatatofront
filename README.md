@@ -6,7 +6,7 @@ git clone https://github.com/jujulilia/zoomatatofront.git
 ```
 2. entrar na pasta
  ```
-   cd zoomatatofront
+ cd zoomatatofront
  ```
 3. abrir
 ```
