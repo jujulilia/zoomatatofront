@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
+import { Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView, Alert } from "react-native";
 import axios from 'axios';
+import Footer from "../components/Footer";
 
-const CadastroAnimais = () => {
-    const [animais, setAnimais] = useState([]);
-    const [nome, setNome] = useState('');
-    const [idade, setIdade] = useState('');
-    const [especie, setEspecie] = useState('');
-    const [ra, setRa] = useState('');
-    const [peso, setPeso] = useState('');
-    const [altura, setAltura] = useState('');
-    const [sexo, setSexo] = useState('');
-    const [dieta, setDieta] = useState('');
-    const [habitat, setHabitat] = useState('');
+
+const CadastroAnimal = () => {
+    const [animais, setAnimais] = useState<Animal[]>([]);
+    const [nome, setNome] = useState<string>('');
+    const [idade, setIdade] = useState<string>('');
+    const [especie, setEspecie] = useState<string>('');
+    const [ra, setRa] = useState<string>('');
+    const [peso, setPeso] = useState<string>('');
+    const [altura, setAltura] = useState<string>('');
+    const [sexo, setSexo] = useState<string>('');
+    const [dieta, setDieta] = useState<string>('');
+    const [habitat, setHabitat] = useState<string>('');
 
     const logo = require('../assets/images/logo.png');
 
@@ -29,7 +31,7 @@ const CadastroAnimais = () => {
             formData.append('dieta', dieta);
             formData.append('habitat', habitat);
 
-            const response = await axios.post('http://10.137.11.227:8000/api/animal/cadastrar', formData, {
+            const response = await axios.post('http://10.137.11.225:8000/api/animal/cadastrar', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -40,13 +42,14 @@ const CadastroAnimais = () => {
         }
     }
 
+
     return (
-        <ScrollView style={styles.container}>
+       <View style={styles.container}>
+        <ScrollView >
             <StatusBar backgroundColor="black" barStyle="light-content" />
             <View style={styles.header}>
                 <Image source={logo} style={styles.logo} />
             </View>
-
             <View style={styles.form}>
                 <Text style={styles.fText}>Cadastro de Animais</Text>
                 <TextInput
@@ -67,11 +70,13 @@ const CadastroAnimais = () => {
                     onChangeText={setRa} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Peso"
+                    placeholder="Peso em Kg"
+                    keyboardType="decimal-pad"
                     onChangeText={setPeso} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Altura"
+                    placeholder="Altura em Cm"
+                    keyboardType="decimal-pad"
                     onChangeText={setAltura} />
                 <TextInput
                     style={styles.input}
@@ -85,40 +90,20 @@ const CadastroAnimais = () => {
                     style={styles.input}
                     placeholder="Habitat"
                     onChangeText={setHabitat} />
-            </View>
 
-            <TouchableOpacity style={styles.imageButton} onPress={cadastrarAnimal}>
-                <Text style={styles.imageButtonText}>Cadastrar Animal</Text>
-            </TouchableOpacity>
-
-            <View style={styles.footer}>
-                <TouchableOpacity>
-                    <Image
-                        source={require('../assets/images/home.png')}
-                        style={styles.footerIcon}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image
-                        source={require('../assets/images/profile.png')}
-                        style={styles.footerIcon}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image
-                        source={require('../assets/images/menu.png')}
-                        style={styles.footerIcon}
-                    />
+                <TouchableOpacity style={styles.imageButton} onPress={cadastrarAnimal}>
+                    <Text style={styles.imageButtonText}>Cadastrar Animal</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
+          <Footer />
+</View>
+    
     );
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom: 60, 
     },
     header: {
         backgroundColor: '#606c38',
@@ -136,7 +121,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        borderColor: 'white',
+        borderColor: 'black',
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
@@ -159,31 +144,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         paddingVertical: 12,
-        paddingHorizontal: 'auto'
+        paddingHorizontal: 'auto',
+    
     },
-    footer: {
-        borderTopWidth: 1,
-        backgroundColor: '#fefae0',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingVertical: 20,
-        paddingHorizontal: 20,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-    },
-
-    footerIcon: {
-        width: 24,
-        height: 24,
-        margin: 10,
-    },
+    
 });
 
-export default CadastroAnimais;
+export default CadastroAnimal;
