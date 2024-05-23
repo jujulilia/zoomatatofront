@@ -1,76 +1,92 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import axios from 'axios';
+import Footer from '../components/Footer';
 
 interface Animal {
     id: string;
     nome: string;
-    especie: string;
     idade: string;
+    especie: string;
     ra: string;
-    peso: string;
-    altura: string;
+    peso: number;
+    altura: number;
     sexo: string;
     dieta: string;
     habitat: string;
 }
 
-const ListagemAnimais: React.FC = () => {
-    const [animais, setAnimais] = useState<Animal[]>([]);
+
+const Cardapio = () => {
+    const [dados, setDados] = useState<Animal[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    const logo = require('../assets/images/logo.png');
-
     useEffect(() => {
-        const fetchAnimais = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get('http://10.137.11.227:8000/api/animal/todos');
-                setAnimais(response.data.data);
-                console.log(response.data.data)
+                const response = await axios.get<Animal[]>('http://10.137.11.225:8000/api/animal/todos');
+                console.log('Dados recebidos da API:', response.data);
+                setDados(response.data);
+                console.log("dados da api" + dados);
             } catch (error) {
-                setError("Ocorreu um erro ao buscar os animais");
+                console.error('Erro ao buscar os dados:', error);
+                setError("Ocorreu um erro ao buscar os bolos");
             }
         };
 
-        fetchAnimais();
+        fetchData();
     }, []);
 
-    const renderItem = ({ item }: { item: Animal }) => (
-        <View style={styles.itemContainer}>
-            <TouchableOpacity style={styles.item}>
-                <View style={styles.text}>
-                    <Text style={styles.tituloAnimais}>{item.nome}</Text>
-                    <Text style={styles.especie}>{item.especie}</Text>
-                    <Text style={styles.idade}>{item.idade}</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
-    );
-
+    const renderItem = ({ item }: { item: Animal }) => {
+        return (
+            <View style={styles.itemContainer}>
+                <TouchableOpacity style={styles.item}>
+                    <View style={styles.text}>
+                        <Text style={styles.nome}>{item.nome}</Text>
+                        <Text style={styles.idade}>Idade: {item.idade}</Text>
+                        <Text style={styles.especie}>Espécie: {item.especie}</Text>
+                        <Text>RA: {item.ra}</Text>
+                        <Text>Peso: {item.peso} kg</Text>
+                        <Text>Altura: {item.altura} cm</Text>
+                        <Text>Sexo: {item.sexo}</Text>
+                        <Text>Dieta: {item.dieta}</Text>
+                        <Text>Hábitat: {item.habitat}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    };
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="black" barStyle='light-content' />
             <View style={styles.header}>
-                <Image source={logo} style={styles.logo} />
+                <Image source={require('../assets/images/logo.png')} style={styles.logo} />
             </View>
 
             <FlatList
-                data={animais}
-                renderItem={({ item }) => renderItem({ item })}
-                keyExtractor={(item) => item.id.toString()}
+                data={dados}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
             />
+            <Footer/>
         </View>
     );
-};
+}
 
 
 const styles = StyleSheet.create({
-    logo: {
-        width: 200,
-        height: 130,
-    },
     container: {
         flex: 1,
+    },
+    item: {
+        backgroundColor: '#606c38',
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 8,
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     header: {
         backgroundColor: '#606c38',
@@ -82,27 +98,30 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black'
     },
-    itemContainer: {
+    footer: {
+        borderTopWidth: 0.2,
+        backgroundColor: 'white',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        marginVertical: 8,
-        marginHorizontal: 8,
+        paddingVertical: 10
     },
-    item: {
-        backgroundColor: '#feedc6',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 8,
-        borderRadius: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+    footerIcon: {
+        width: 30,
+        height: 30
     },
     image: {
         width: 130,
         height: 100,
         marginRight: 25
+    },
+    especie: {
+        fontWeight: 'bold',
+        color: 'black'
+    },
+    logo: {
+        width: 130,
+        height: 100
     },
     text: {
         flexDirection: 'column',
@@ -110,26 +129,31 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
     },
-    tituloAnimais: {
+    nome: {
         fontWeight: 'bold',
         color: 'black',
         fontSize: 20,
         textAlign: 'center',
         marginBottom: 10,
     },
-    especie: {
-        fontWeight: 'bold',
-        color: 'black',
-        fontSize: 16,
-        marginBottom: 10,
-    },
     idade: {
         fontWeight: 'bold',
-        color: 'black',
-        fontSize: 16,
+        color: 'red',
+        fontSize: 20,
+        marginBottom: 10,
+        backgroundColor: 'yellow',
+        borderRadius: 10
     },
+    itemContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginVertical: 8,
+        marginHorizontal: 8,
+    },
+   
+
 
 });
 
-export default ListagemAnimais;
-
+export default Cardapio;
