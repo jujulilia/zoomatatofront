@@ -6,7 +6,7 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 function Footer(): React.JSX.Element {
     
     const navigation = useNavigation();
-    // const route = useRoute();
+  
 
  return(
      <View style={styles.footer}>

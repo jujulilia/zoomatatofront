@@ -11,7 +11,6 @@ function App(): React.JSX.Element{
   return(
     <NavigationContainer>
     <Stack.Navigator>
-      
     <Stack.Screen name='CadastroAnimal' component={CadastroAnimal} options={{headerShown: false}}/>
       <Stack.Screen name='ListagemAnimal' component={ListagemAnimal} options={{headerShown: false}}/>
     </Stack.Navigator>

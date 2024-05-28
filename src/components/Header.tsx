@@ -1,32 +1,31 @@
-import { Header } from "@react-navigation/stack";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-function Head(): React.JSX.Element {
+
+function Header(): React.JSX.Element {
+
+    const logo = require('../assets/images/logo.png');
+
     return (
-        <View style={styles.header} >
-            <Text style={styles.headerText} >App Exemplo</Text>
-        </View>
-    );
-
+        <View style={styles.header}>
+                <Image source={logo} style={styles.logo} />
+            </View>
+    )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
+    menuList: {
+        flexGrow: 1
     },
-    header: {
-        backgroundColor: 'red',
+      header: {
+        backgroundColor: '#606c38',
         paddingVertical: 10,
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white'
-    }
-    
-
+    logo: {
+        width: 200,
+        height: 130,
+    },
 });
 
 export default Header;

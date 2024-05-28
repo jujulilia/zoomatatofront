@@ -46,7 +46,7 @@ const CadastroAnimal = () => {
        <View style={styles.container}>
         <ScrollView >
             <StatusBar backgroundColor="black" barStyle="light-content" />
-            <header />
+            <Header />
             <View style={styles.form}>
                 <Text style={styles.fText}>Cadastro de Animais</Text>
                 <TextInput
