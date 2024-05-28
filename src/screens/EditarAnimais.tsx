@@ -17,14 +17,14 @@ const EditarAnimais = ({ route }: { route: any }) => {
     const [sexo, setSexo] = useState(animal.sexo);
     const [dieta, setDieta] = useState(animal.dieta);
     const [habitat, setHabitat] = useState(animal.habitat);
-    const [updateSuccess, setUpdateSuccess] = useState(false); // Estado para controlar a navegação
+    const [updateSuccess, setUpdateSuccess] = useState(false); 
 
     useEffect(() => {
         if (updateSuccess) {
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
-                    routes: [{ name: 'Listagem' }],
+                    routes: [{ name: 'ListagemAnimal' }],
                 })
             );
         }
