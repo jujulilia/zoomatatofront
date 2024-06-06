@@ -30,7 +30,7 @@ const CadastroAnimal = () => {
             formData.append('dieta', dieta);
             formData.append('habitat', habitat);
 
-            const response = await axios.post('http://10.137.11.227:8000/api/animal/cadastrar', formData, {
+            const response = await axios.post('http://10.137.11.227/ZooMatato/public/api/animal/cadastrar', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

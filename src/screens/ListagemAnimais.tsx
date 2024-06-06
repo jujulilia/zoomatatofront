@@ -25,7 +25,7 @@ const ListagemAnimal = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://10.137.11.227/api/animal/todos');
+            const response = await axios.get('http://10.137.11.227/ZooMatato/public/api/animal/todos');
             console.log('Dados recebidos da API:', response.data);
             setDados(response.data.data);
         } catch (error) {
@@ -40,7 +40,7 @@ const ListagemAnimal = () => {
 
     const deletarAnimal = async (id: string) => {
         try {
-            await axios.delete(`http://10.137.11.227/api/animal/excluir/${id}`);
+            await axios.delete(`http://10.137.11.227/ZooMatato/public/api/animal/excluir/${id}`);
             Alert.alert("Sucesso!", "Animal deletado com sucesso.");
             fetchData(); 
         } catch (error) {
@@ -113,7 +113,7 @@ const ListagemAnimal = () => {
                     onChangeText={setPesquisaAnimal}
                     value={pesquisaAnimal}
                     placeholder="Pesquisar animal..."
-                    onEndEditing={buscarAnimal} // Chama buscarAnimal quando o texto termina de ser editado
+                    onEndEditing={buscarAnimal} 
                     onChangeText={(text) => {
                         setPesquisaAnimal(text);
                     }}

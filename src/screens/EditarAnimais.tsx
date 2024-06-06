@@ -32,7 +32,7 @@ const EditarAnimais = ({ route }: { route: any }) => {
 
     const salvarAlteracoes = async () => {
         try {
-            await axios.post(`http://10.137.11.227:8000/api/animal/atualizar/${animal.id}`, {
+            await axios.post(`http://10.137.11.227/ZooMatato/public/api/animal/atualizar/${animal.id}`, {
                 nome,
                 idade,
                 especie,
